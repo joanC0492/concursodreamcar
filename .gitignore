@@ -5,3 +5,7 @@ images/concurso_2025/*
 !images/concurso_2025/.gitkeep
 # Excepto el archivo .htaccess
 !images/concurso_2025/.htaccess
+
+
+README_AUDITORIA.md
+actualizar_bd_dni.sql

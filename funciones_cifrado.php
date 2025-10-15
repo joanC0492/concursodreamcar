@@ -51,19 +51,56 @@ function cifrarDNI($dni) {
 }
 
 /**
- * Descifra un número de DNI cifrado
- * @param string $dni_cifrado DNI cifrado en formato base64
- * @return string DNI descifrado
+ * Verifica si un DNI está cifrado o en texto plano
+ * @param string $dni DNI a verificar
+ * @return bool True si está cifrado
+ */
+function estaDNICifrado($dni) {
+    // Si es un número de 8 dígitos, está en texto plano
+    if (preg_match('/^\d{8}$/', $dni)) {
+        return false;
+    }
+    
+    // Si contiene caracteres típicos de base64 (+, /, =) y no son solo números, probablemente está cifrado
+    if (preg_match('/[+\/=]/', $dni) && !preg_match('/^\d+$/', $dni)) {
+        return true;
+    }
+    
+    // Si es base64 válido y tiene longitud apropiada para cifrado
+    $decoded = base64_decode($dni, true);
+    if ($decoded !== false && strlen($decoded) >= 28) { // Mínimo IV(12) + Tag(16)
+        return true;
+    }
+    
+    return false;
+}
+
+/**
+ * Descifra un número de DNI cifrado (MEJORADO)
+ * @param string $dni_cifrado DNI cifrado en formato base64 o texto plano
+ * @return string DNI descifrado o el mismo valor si está en texto plano
  */
 function descifrarDNI($dni_cifrado) {
     if (empty($dni_cifrado)) {
         return '';
     }
     
+    // Si no está cifrado, devolverlo como está
+    if (!estaDNICifrado($dni_cifrado)) {
+        return $dni_cifrado; // Es texto plano
+    }
+    
     try {
-        $datos = base64_decode($dni_cifrado);
+        $datos = base64_decode($dni_cifrado, true);
         if ($datos === false) {
-            throw new Exception('Formato de DNI cifrado inválido');
+            error_log("Error: No se pudo decodificar base64: " . $dni_cifrado);
+            return '[CORRUPTED_BASE64]';
+        }
+        
+        // Verificar que tiene suficientes bytes
+        if (strlen($datos) < 28) {
+            error_log("Error: DNI cifrado truncado o corrupto. Bytes: " . strlen($datos) . ", Original: " . $dni_cifrado);
+            return '[DNI_CORRUPTED]'; // DNI cifrado dañado, necesita re-cifrado
         }
         
         $clave = obtenerClaveCifrado();
@@ -83,15 +120,16 @@ function descifrarDNI($dni_cifrado) {
         );
         
         if ($dni === false) {
-            throw new Exception('Error al descifrar DNI');
+            error_log("Error: Fallo en descifrado AES-GCM para: " . $dni_cifrado);
+            return '[DECRYPT_FAILED]';
         }
         
         return $dni;
         
     } catch (Exception $e) {
-        // Log error pero no exponer detalles
-        error_log('Error descifrado DNI: ' . $e->getMessage());
-        return '[DNI_CIFRADO]'; // Placeholder para mostrar en reportes
+        // Log error pero retornar placeholder informativo
+        error_log('Error descifrado DNI: ' . $e->getMessage() . " - DNI: " . $dni_cifrado);
+        return '[EXCEPTION_ERROR]';
     }
 }
 
