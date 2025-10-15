@@ -1,0 +1,65 @@
+@font-face{
+    font-family:'DK-Bocadillo';
+    font-style:normal;
+    font-weight:400;
+    src:url("fuentes/DK-Bocadillo.otf") format("OpenType");
+}
+@font-face{
+    font-family:'Dimbo-Regular';
+    font-style:normal;
+    font-weight:400;
+    src:url("fuentes/Dimbo-Regular.ttf") format("TrueType");
+}
+@font-face{
+    font-family:'Bosk';
+    font-style:normal;
+    font-weight: 400;
+    src:url("fuentes/Bosk.otf") format("OpenType"),
+        url("fuentes/Bosk.ttf") format("TrueType");
+}
+@font-face{
+    font-family:'House Slant';
+    font-style:normal;
+    font-weight:400;
+    src:url("fuentes/HouseSlant-Regular.otf") format("OpenType");
+}
+
+@font-face{
+    font-family:'Mont';
+    font-style:normal;
+    font-weight:400;
+    src:url("fuentes/Mont-SemiBold.otf") format("OpenType");
+}
+
+@font-face{
+    font-family:'Mont';
+    font-style:normal;
+    font-weight:500;
+    src:url("fuentes/Mont-Bold.otf") format("OpenType");
+}
+
+@font-face{
+    font-family:'Poppins';
+    font-style:normal;
+    font-weight:300;
+    src:url("fuentes/Poppins-Light.otf") format("OpenType");
+}
+
+@font-face{
+    font-family:'Poppins';
+    font-style:normal;
+    font-weight:400;
+    src:url("fuentes/Poppins-Medium.otf") format("OpenType");
+}
+@font-face{
+    font-family:'Poppins';
+    font-style:normal;
+    font-weight:500;
+    src:url("fuentes/Poppins-SemiBold.otf") format("OpenType");
+}
+@font-face{
+    font-family:'Poppins';
+    font-style:normal;
+    font-weight:700;
+    src:url("fuentes/Poppins-Bold.otf") format("OpenType");
+}

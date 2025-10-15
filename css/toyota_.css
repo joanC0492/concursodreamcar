@@ -1,0 +1,438 @@
+.top_panel_middle .logo{
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+.top_panel_middle .menu_main_wrap{
+    margin-top: 3em;
+    margin-bottom: 2.2em;
+}
+
+@media(min-width:1024px){
+    #menu_main .menu-span{
+        font-size: 98%;
+    }
+}
+@media(min-width:1024px) and (max-width:1135px){
+    #menu_main .menu-span{
+        font-size: 90%;
+    }
+}
+
+
+.menu-item a:hover{
+    background-color: #f6b328;
+}
+
+.row, .columns_wrap{
+    margin-right: 0;
+}
+.row>[class*="column-"], .columns_wrap>[class*="column-"]{
+    padding-right: 0;
+}
+
+
+.slider_boxed, .content_wrap, .content_container{
+    width: 1280px;
+}
+
+@media(min-width: 1263px) and (max-width: 1400px){
+    .slider_boxed, .content_wrap, .content_container{
+        width: 1200px;
+    }    
+}
+@media(min-width: 1136px) and (max-width: 1262px){
+    .slider_boxed, .content_wrap, .content_container{
+        width: 1040px;
+    }    
+}
+@media(min-width: 1024px) and (max-width: 1135px){
+    .slider_boxed, .content_wrap, .content_container{
+        width: 974px;
+    }    
+}
+
+
+/* primer section */
+#rev_slider_1_1_wrapper{
+    background-image: url(../images/toyota/fondo-principal.png);
+    background-size: cover;
+    min-height: 100vh;
+    height: 100vh;
+}
+.video-principal{
+    margin-top: 5rem;
+}
+.margin_toyota{
+    margin-left: 16.6%;
+    margin-right: 16.6%;
+}
+.video-header{
+    background-color: #fff;
+}
+.video_title{
+    margin-bottom: 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-family:'DK-Bocadillo';
+    font-size: 32px;
+}
+.video_txt_pink{
+    color: #f36e92;
+}
+.video_txt_sky{
+    color: #0dbbde;
+}
+
+
+
+
+
+
+.container_toyota{
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  @media (min-width: 576px) {
+    .container_toyota {
+      max-width: 540px;
+    }
+  }  
+  @media (min-width: 768px) {
+    .container_toyota {
+      max-width: 720px;
+    }
+  }  
+  @media (min-width: 992px) {
+    .container_toyota {
+      max-width: 960px;
+    }
+  }  
+  @media (min-width: 1200px) {
+    .container_toyota {
+      max-width: 1140px;
+    }
+  }
+
+  /* constantes */
+  .text-center{
+      text-align: center;
+  }
+/* ------------------------ PREMIO ------------------------*/
+#premio{
+    background-image: 
+        url(../images/toyota/premios_01.png),
+        url(../images/toyota/premios_04.png);
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-size: 134px, 124px, calc(63.3333% - 30px);
+    background-position: 0 50%,100% 50%, center;
+    background-attachment: fixed,fixed,scroll;
+    min-height: calc(100vh - 70px);
+    padding-top: 30px;
+    padding-bottom: 30px;    
+}
+#premio .premio-img{
+    padding-left: 45px;
+    padding-right: 45px;
+}
+#premio .derecha{
+    position: relative;
+    right: -30%;
+}
+#premio .derecha .img-cont{
+    min-height: 302.48px;
+    display: flex;
+    align-items: center;
+}
+#premio .izquierda{
+    position: relative;
+    left: -30%;
+}
+#premio .izquierda .premio-img{
+    padding-left: 0;
+    padding-right: 0;
+}
+#premio .title-premio{
+    font-family:'DK-Bocadillo' !important;
+    font-size: 28px;
+    color: #286ab3;
+    font-family: serif;
+}
+#premio .premio_title{
+    font-family:'DK-Bocadillo' !important;
+    font-size: 22px;
+    color: #286ab3;
+    margin-bottom: .25rem;
+}
+#premio .premio_span{
+    font-family:'DK-Bocadillo' !important;
+    color: #282f31;
+    font-size: 16px;
+}
+#premio .premio_txt{
+    /* overflow: scroll; */
+    text-align: center;
+}
+
+#premio .img-fluid-main{
+    width: 262px;
+}
+
+  /* ------------------------ REQUISITOS ------------------------*/
+  #requisitos{
+      background-image: url(../images/toyota/fondo-requisitos.jpg);
+      min-height: calc(100vh - 70px);
+      background-size: cover;
+      padding-top: 30px;
+      padding-bottom: 30px;
+  }
+
+  #requisitos .req-txt{
+    font-family:'DK-Bocadillo';
+    font-size: 16px;
+    color: #fff;
+    text-shadow: -1px 2px 7px #00000080;
+  }
+
+  #requisitos .req-txt.req-p{
+    margin-bottom: 0.3em;
+  }
+
+  #requisitos ul{
+      padding-left: 0;
+      list-style: none;    
+}
+#requisitos .req-txt.req-title{
+    font-size: 32px;
+    padding-left: 14rem;
+    padding-right: 14rem;
+}
+#participar{
+    background-image: url(../images/toyota/boton.png);
+    background-repeat: no-repeat;
+    line-height: 1em;
+    display: inline-block;
+    padding: 30px 64px 60px 30px;
+    font-family:'DK-Bocadillo';
+    color: #282f31;
+    font-size: 28px;
+}
+
+/* #participar:before{
+    content: url("../images/toyota/boton.png");
+    position: absolute;
+    left: 0;
+} */
+
+/* ------------------------ GANADORES ------------------------*/
+#ganadores{
+    background-color: #e3f821;
+    background-image: url(../images/toyota/premios_01_r.png),
+                      url(../images/toyota/premios_04_r.png);
+    background-repeat: no-repeat, no-repeat;
+    background-size: 134px, 124px;
+    background-position: 100% 85%,0 25%;
+    background-attachment: fixed,fixed;                      
+    /* min-height: calc(100vh - 70px);     */
+    padding-top: 30px;
+    padding-bottom: 30px;    
+}
+
+#ganadores .ganador-title{
+    font-family:'DK-Bocadillo';
+    font-size: 32px;
+}
+#ganadores .ganador_txtcat,
+#ganadores .ganador_txtan{
+    font-family:'DK-Bocadillo';
+}
+#ganadores .ganador_txtcat{
+    margin-bottom: 0;
+    color: #286ab3;
+    font-size: 20px;
+}
+#ganadores .ganador_txtan{
+    color: #282f31;
+    font-size: 16px;
+}
+#ganadores .end{
+    margin-top: 2.5rem;
+}
+
+/* ------------------------ REGISTRO ------------------------*/
+#registro{
+    background-color: #18adde;
+    padding-top: 70px;
+    padding-bottom: 45px;
+    font-family: 'DK-Bocadillo';
+    min-height: calc(100vh - 70px);    
+}
+#registro .row{
+    margin-bottom: .75rem;
+}
+
+#registro input[type="text"],#registro input[type="number"],#registro input[type="email"],
+#registro textarea{
+    font-family:'DK-Bocadillo';
+    background-color: rgba(255, 255, 255, 0.85);
+    /* color: #4f5a61; */
+    color: #282f31;
+    width: 100%;
+    border-radius: 20px;
+    padding-left: 22.5px;
+    height: 40px;
+}
+
+#registro input[type="text"]::placeholder,
+#registro textarea::placeholder{
+    font-family:'DK-Bocadillo';
+    color: #4f5a61;
+    opacity: .7;
+}
+#registro label,
+#registro .txt-form{
+    font-size: 16px;
+    color: #fff;
+}
+#registro .subtitle_form{
+    font-family:'DK-Bocadillo';
+    color: #ffffff;
+    text-align: center;
+    font-size: 22px;
+    margin-bottom: 2em;
+}
+#registro .registro_title{
+    font-family:'DK-Bocadillo';
+    color: #e3f821;
+    text-align: center;
+    font-size: 32px;
+}
+#registro input[type="file"]{
+    color: #4f5a61;
+}
+.lbl_archivos{
+    display: block;
+}
+
+.dc_label_c {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+}
+.dc_label_c  span{
+    font-family: 'Bosk';
+}
+.dc_label_c input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+.dc_label_c .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+.dc_label_c:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+.dc_label_c input:checked ~ .checkmark {
+    background-color: #f5b121;
+}
+.dc_imput{
+    margin-bottom: 0.5em;
+}
+.btn-siguiente{
+    background: url('../images/buttons/large-1.png')center;
+    background-size: cover;
+    padding: 22px 41px;
+    color: #222  !important;
+    display: inline-block;
+}
+.btn-siguiente:hover{
+    background: url('../images/buttons/large-3.png')center;
+    background-size: cover;
+    padding: 22px 41px;
+}
+.dc_pasos {
+    padding: 0px 0px 2em;
+    display: none;
+}
+
+.dc_pasos.active{
+    display: block;
+}
+
+.checkmark2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.dc_label_c:hover input ~ .checkmark2 {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.dc_label_c input:checked ~ .checkmark2 {
+  background-color: #f5b120;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark2:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.dc_label_c input:checked ~ .checkmark2:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.dc_label_c .checkmark2:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.text_terminos {
+    font-size: 11px !important;
+    letter-spacing: 1px;
+    line-height: 17px;
+}
+.title_terminos{
+    font-family:'DK-Bocadillo';
+    color: #e3f821 !important;
+    font-size: 23px;
+    padding-top: .5em;
+}
+.btn-env {
+    font-family: 'DK-Bocadillo' !important;
+    padding: 26px 41px !important;
+    color: #222 !important;
+    display: inline-block !important;
+    background-color: #ff000000 !important;
+    font-size: 15px !important;
+}
+.alert-rojo{
+    color: red !important;
+    font-size: 15 !important;
+}

@@ -1,0 +1,186 @@
+.ganador-img {
+  border: 20px solid white;
+}
+
+#image-container-cat1,
+#image-container-cat2 {
+  margin-top: 2rem;
+}
+
+.cat-uno,
+.cat-dos,
+.cat-tres {
+  cursor: pointer;
+}
+
+.cat-uno,
+.cat-dos {
+  display: inline-block;
+  transform:  rotate(4deg);
+}
+
+.cat-uno:first-child,
+.cat-dos:first-child {
+  margin-bottom: 2rem;
+}
+
+#image-container-cat3 {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  transform:  rotate(4deg);
+}
+
+.cat-uno figcaption.nombre-img-uno,
+.cat-dos figcaption.nombre-img-uno {
+  display: block;
+  background-color: white !important;
+  color: #000;
+  width: 300px;
+  margin: 0 auto;
+}
+
+.cat-uno figcaption.nombre-img-dos,
+.cat-dos figcaption.nombre-img-dos {
+  display: block;
+  background-color: white !important;
+  color: #000;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.cat-uno figcaption.nombre-img-tres,
+.cat-dos figcaption.nombre-img-tres {
+  display: block;
+  background-color: white !important;
+  color: #000;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.cat-tres figcaption.nombre-img-uno {
+  display: block;
+  background-color: white !important;
+  color: #000;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.cat-tres figcaption.nombre-img-dos {
+  display: block;
+  background-color: white !important;
+  color: #000;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.cat-tres figcaption.nombre-img-tres {
+  display: block;
+  background-color: white !important;
+  color: #000;
+  width: 100%;
+  margin: 0 auto;
+}
+
+
+@media screen and (max-width: 1200px) {
+
+  .nombre-img {
+    font-size: .5rem;
+  }
+
+  .cat-uno:nth-child(2),
+  .cat-uno:nth-child(3) {
+    width: 40%;
+  }
+
+  .cat-dos:nth-child(2),
+  .cat-dos:nth-child(3) {
+    width: 40%;
+  }
+
+  .ganador-img {
+    border: 10px solid white;
+  }
+  
+  .titulo-dibujo {
+    display: none;
+  }
+
+  .nombre-img.nombre-img-dos {
+    font-size: 9px !important;
+  }
+  
+}
+
+
+@media screen and (max-width: 770px) {
+
+  .cat-uno:nth-child(2),
+  .cat-uno:nth-child(3) {
+    width: 40%;
+  }
+
+  .cat-dos:nth-child(2),
+  .cat-dos:nth-child(3) {
+    width: 40%;
+  }
+
+  .cat-uno figcaption.nombre-img-uno,
+  .cat-uno figcaption.nombre-img-dos,
+  .cat-uno figcaption.nombre-img-tres {
+    display: none;
+  }
+
+  .cat-uno {
+    margin-left: 5px;
+  }
+
+  .cat-dos figcaption.nombre-img-uno,
+  .cat-dos figcaption.nombre-img-dos,
+  .cat-dos figcaption.nombre-img-tres {
+    display: none;
+  }
+
+  .cat-dos {
+    margin-left: 5px;
+  }
+
+  .cat-tres figcaption.nombre-img-uno,
+  .cat-tres figcaption.nombre-img-dos,
+  .cat-tres figcaption.nombre-img-tres {
+    display: none;
+  }
+
+  .cat-tres {
+    margin-left: 5px; 
+  }
+}
+
+.viewer-title {
+  color: white !important;
+  font-weight: bold !important;
+}
+
+
+@media screen and (max-width: 767px) {
+  .image-escritorio {
+    display: none;
+  }
+
+  .image-movil {
+    display: block;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .image-escritorio {
+    display: block;
+  }
+
+  .image-movil {
+    display: none;
+  }
+}

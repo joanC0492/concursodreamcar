@@ -1,0 +1,29 @@
+# Denegar acceso directo a archivos PHP
+<Files "*.php">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Denegar ejecución de scripts
+php_flag engine off
+
+# Solo permitir imágenes específicas
+<FilesMatch "\.(jpg|jpeg|png)$">
+    Order allow,deny
+    Allow from all
+</FilesMatch>
+
+# Denegar acceso a todos los demás tipos de archivo
+<FilesMatch "\..*$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Prevenir listado de directorios
+Options -Indexes
+
+# Headers de seguridad adicionales
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options nosniff
+    Header set X-Frame-Options DENY
+</IfModule>

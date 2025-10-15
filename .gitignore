@@ -1,0 +1,7 @@
+# Ignorar todos los archivos y carpetas dentro de images/concurso_2025/
+images/concurso_2025/*
+
+# Mantener la carpeta vacía (opcional)
+!images/concurso_2025/.gitkeep
+# Excepto el archivo .htaccess
+!images/concurso_2025/.htaccess
