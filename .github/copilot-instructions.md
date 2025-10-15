@@ -70,6 +70,8 @@ jQuery.ajax({
 - **Archivos permitidos**: Solo JPG, JPEG, PNG con validación estricta
 - **move_uploaded_file()**: Reemplaza copy() para mayor seguridad
 - **Protección .htaccess**: Previene ejecución de scripts en uploads
+- **Cifrado de datos sensibles**: DNI cifrados con AES-256-GCM
+- **Campos eliminados**: Sin fotos DNI, direcciones, fechas nacimiento apoderado, edad, colegios
 
 **Ejemplo de validación de archivos:**
 
@@ -87,6 +89,16 @@ $nombre_seguro = generarNombreAleatorio($validacion['extension']);
 if (!move_uploaded_file($_FILES['archivo']['tmp_name'], $ruta_destino)) {
     echo "Error al guardar archivo"; exit;
 }
+```
+
+**Ejemplo de cifrado de DNI:**
+
+```php
+// Cifrar DNI antes de guardar
+$dni_cifrado = cifrarDNIValidado($dni_usuario);
+
+// Descifrar DNI para reportes autorizados
+$dni_legible = descifrarDNI($dni_cifrado_bd);
 ```
 
 ### CSS y Assets

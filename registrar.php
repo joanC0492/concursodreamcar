@@ -2,6 +2,7 @@
 	header('Content-type: multipart/form-data');
 	session_start();
 	require_once('env.php');
+	require_once('funciones_cifrado.php'); // Funciones de cifrado para datos sensibles
 	//importamos clases para Mail
 	use PHPMailer\PHPMailer\PHPMailer;
 	use PHPMailer\PHPMailer\SMTP;
@@ -55,23 +56,28 @@
 
 
   	$_SESSION['id_utm'] = $_POST['id_utm'];
-	// datos
+	
+	// === DATOS BÁSICOS PARTICIPANTE ===
 	$dc_categoria = $_POST['dc_categoria'];
 	$dc_nombre = $_POST['dc_nombre'];
 	$dc_apellido = $_POST['dc_apellido'];
-	$dc_edad = $_POST['dc_edad'];
-	$dc_fecha = $_POST['dc_fecha'];
+	// ELIMINADO: $dc_edad - datos sensibles según auditoría
+	$dc_fecha = $_POST['dc_fecha']; // Fecha de nacimiento se mantiene
 	$dc_dni = $_POST['dc_dni'];
 	$dc_sexo = $_POST['dc_sexo'];
+	
+	// === DATOS APODERADO (CAMPOS REDUCIDOS) ===
 	$dc_apoderado_name = $_POST['dc_apoderado_name'];
 	$dc_apoderado_apellido = $_POST['dc_apoderado_apellido'];
 	$dc_apoderado_pais = $_POST['dc_apoderado_pais'];
-	$dc_apoderado_fecha = $_POST['dc_apoderado_fecha'];
+	// ELIMINADO: $dc_apoderado_fecha - fecha nacimiento apoderado (datos sensibles)
 	$dc_apoderado_dni = $_POST['dc_apoderado_dni'];
 	$dc_apoderado_celular = empty($_POST['dc_apoderado_celular']) ? 'null' : $_POST['dc_apoderado_celular'];
 	$dc_apoderado_telefono = empty($_POST['dc_apoderado_telefono']) ? 'null' : $_POST['dc_apoderado_codigo_telefono'] . $_POST['dc_apoderado_telefono'];
-	$dc_apoderado_direccion = $_POST['dc_apoderado_direccion'];
+	// ELIMINADO: $dc_apoderado_direccion - datos sensibles según auditoría
 	$dc_apoderado_email = $_POST['dc_apoderado_email'];
+	
+	// === DATOS DEL DIBUJO ===
 	$dc_dibujo_titulo = $_POST['dc_dibujo_titulo'];
 	$dc_dibujo_desc = $_POST['dc_dibujo_desc'];  
 	$dc_term = $_POST['dc_term'];
@@ -80,9 +86,17 @@
 	$dc_dibujo_categoria = $_POST['dc_dibujo_categoria'];
 	$dc_provincia_id = $_POST['dc_provincia_id'];
 	$dc_distrito_id = $_POST['dc_distrito_id'];
-	$dc_dni_file_extension = $_POST['dc_dni_file_extension'];
-  $dc_dni_nino_file_extension = $_POST['dc_dni_nino_file_extension'];
-	$dc_colegio = $_POST['dc_colegio'];
+	// ELIMINADO: campos de DNI files - no se guardarán fotos de DNI
+	// ELIMINADO: $dc_colegio - nombre institución educativa (datos sensibles)
+	
+	// === CIFRADO DE DNI - SEGURIDAD ===
+	try {
+		$dc_dni_cifrado = cifrarDNIValidado($dc_dni);
+		$dc_apoderado_dni_cifrado = cifrarDNIValidado($dc_apoderado_dni);
+	} catch (Exception $e) {
+		echo "Error: " . $e->getMessage(); 
+		exit;
+	}
 
 	//var_dump($_POST);exit;
 	
@@ -124,38 +138,22 @@
 	}
 	
 	/** upload seguro **/
-	/** upload seguro **/
+	/** upload seguro - SOLO DIBUJO **/
 	
-	// Validar archivo de dibujo
+	// Validar ÚNICAMENTE archivo de dibujo (NO fotos de DNI según auditoría)
 	$validacion_dibujo = validarArchivoImagen($_FILES['dc_files']);
 	if (!$validacion_dibujo['valido']) {
 		echo "Error en archivo de dibujo: " . $validacion_dibujo['mensaje']; 
 		exit;
 	}
 	
-	// Validar archivo DNI del apoderado
-	$validacion_dni = validarArchivoImagen($_FILES['dc_dni_file']);
-	if (!$validacion_dni['valido']) {
-		echo "Error en archivo DNI apoderado: " . $validacion_dni['mensaje']; 
-		exit;
-	}
-	
-	// Validar archivo DNI del niño
-	$validacion_dni_nino = validarArchivoImagen($_FILES['dc_dni_nino_file']);
-	if (!$validacion_dni_nino['valido']) {
-		echo "Error en archivo DNI del participante: " . $validacion_dni_nino['mensaje']; 
-		exit;
-	}
-	
-	// Generar nombres aleatorios seguros
+	// Generar nombre aleatorio seguro SOLO para dibujo
 	$file_name = generarNombreAleatorio($validacion_dibujo['extension']);
-	$file_name_dni = generarNombreAleatorio($validacion_dni['extension']);
-	$file_name_dni_nino = generarNombreAleatorio($validacion_dni_nino['extension']);
 	
 	$carpeta = __DIR__ . "/images/concurso_2025/CAT_".$dc_categoria;
 
 	// Carpeta que se creara por cada participante que se registre en el concurso
-	// En esta carpeta se guardará la info del concursante, se generará una carpeta por cada concursante inscrito
+	// Usar DNI original para crear carpeta (no cifrado)
 	$carpeta_participante = $carpeta."/".$dc_dni;
 
 	// Verificar existencia de la carpeta, de no ser el caso entonces se crea la carpeta
@@ -165,24 +163,12 @@
 		}
 	}
 
-	// Rutas de destino
+	// Ruta de destino SOLO para dibujo
 	$filepath = $carpeta_participante.'/'.$file_name;
-	$filepath_dni = $carpeta_participante.'/'.$file_name_dni;
-	$filepath_dni_nino = $carpeta_participante.'/'.$file_name_dni_nino;
 
-	// Guardar archivos usando move_uploaded_file() - SEGURO
+	// Guardar ÚNICAMENTE archivo de dibujo usando move_uploaded_file() - SEGURO
 	if (!move_uploaded_file($_FILES['dc_files']['tmp_name'], $filepath)) {
 		echo "Error: No se pudo guardar la imagen del concursante";
-		exit;
-	}
-	
-	if (!move_uploaded_file($_FILES['dc_dni_file']['tmp_name'], $filepath_dni)) {
-		echo "Error: No se pudo guardar el DNI del apoderado";
-		exit;
-	}
-	
-	if (!move_uploaded_file($_FILES['dc_dni_nino_file']['tmp_name'], $filepath_dni_nino)) {
-		echo "Error: No se pudo guardar el DNI del participante";
 		exit;
 	}
 
@@ -191,23 +177,21 @@
 	$dc_term_value = 1; // Variable para el valor constante
 	
 	// Prepared statement para INSERT - SEGURIDAD SQL INJECTION
+	// CAMPOS ELIMINADOS: dc_edad, dc_apoderado_fecha, dc_apoderado_direccion, dc_dni_file, dc_dni_nino_file, dc_colegio
 	$sql = "INSERT INTO dreamcar_registros ( 
 		codigo, 
 		dc_categoria, 
 		dc_nombre, 
 		dc_apellido, 
-		dc_edad, 
 		dc_fecha, 
 		dc_dni, 
 		dc_sexo, 
 		dc_apoderado_name,
 		dc_apoderado_apellido,
 		dc_apoderado_pais, 
-		dc_apoderado_fecha, 
 		dc_apoderado_dni, 
 		dc_apoderado_celular, 
 		dc_apoderado_telefono, 
-		dc_apoderado_direccion, 
 		dc_apoderado_email, 
 		dc_dibujo_titulo, 
 		dc_dibujo_desc, 
@@ -217,12 +201,9 @@
 		dc_dibujo_categoria, 
 		dc_departamento_id, 
 		dc_provincia_id, 
-		dc_distrito_id,
-		dc_dni_file,
-    dc_dni_nino_file,
-		dc_colegio
+		dc_distrito_id
 	) VALUES ( 
-		NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+		NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
 	)";
 
 	$stmt = $conexion->prepare($sql);
@@ -230,36 +211,30 @@
 		die("Error en prepared statement: " . $conexion->error);
 	}
 	
-	// Bind parameters: i=integer, s=string, d=decimal
-	$stmt->bind_param("issssissssssssssssiiiissssss", 
-		$dc_categoria,
-		$dc_nombre, 
-		$dc_apellido, 
-		$dc_edad, 
-		$dc_fecha, 
-		$dc_dni,
-		$dc_sexo, 
-		$dc_apoderado_name, 
-		$dc_apoderado_apellido,
-		$dc_apoderado_pais, 
-		$dc_apoderado_fecha, 
-		$dc_apoderado_dni, 
-		$dc_apoderado_celular, 
-		$dc_apoderado_telefono, 
-		$dc_apoderado_direccion, 
-		$dc_apoderado_email, 
-		$dc_dibujo_titulo, 
-		$dc_dibujo_desc, 
-		$file_name,
-		$dc_term_value,
-		$fecha_registro,
-		$dc_dibujo_categoria,
-		$dc_departamento_id, 
-		$dc_provincia_id, 
-		$dc_distrito_id,
-		$file_name_dni,
-		$file_name_dni_nino,
-		$dc_colegio
+	// Bind parameters: i=integer, s=string - DNI CIFRADOS - 22 - 22
+	$stmt->bind_param("isssssssssssssssisiiii", 
+		$dc_categoria, // i
+		$dc_nombre,  // s
+		$dc_apellido, // s
+		$dc_fecha, // s
+		$dc_dni_cifrado, // DNI cifrado // s
+		$dc_sexo, // s
+		$dc_apoderado_name, // s
+		$dc_apoderado_apellido, // s
+		$dc_apoderado_pais, // s
+		$dc_apoderado_dni_cifrado, // DNI apoderado cifrado // s
+		$dc_apoderado_celular, // s
+		$dc_apoderado_telefono, // s
+		$dc_apoderado_email, // s
+		$dc_dibujo_titulo, // s
+		$dc_dibujo_desc, // s
+		$file_name, // s
+		$dc_term_value, // i
+		$fecha_registro, // s
+		$dc_dibujo_categoria, // i
+		$dc_departamento_id, // i
+		$dc_provincia_id, // i
+		$dc_distrito_id // i
 	);
 
 	if ($stmt->execute()) {

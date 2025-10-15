@@ -1,5 +1,6 @@
 <?php
 	require_once('env.php');
+	require_once('funciones_cifrado.php'); // Para descifrar DNI en reportes
 
 	$server = getenv('SERVER');
 	$dbname = getenv('DATABASE');
@@ -21,7 +22,8 @@
 	header("Cache-Control: no-cache, must-revalidate");
 	header('Content-Disposition: attachment;filename="'.$nombre_archivo.'"');
 
-	$html = "<table><tr><th>Codigo</th><th>Nombre</th><th>Apellido</th><th>Nacimiento</th><th>DNI</th><th>Sexo</th><th>Colegio</th><th>Fecha registro</th></tr>";
+	// Encabezados actualizados - campos sensibles eliminados
+	$html = "<table><tr><th>Codigo</th><th>Nombre</th><th>Apellido</th><th>Nacimiento</th><th>DNI</th><th>Sexo</th><th>Fecha registro</th></tr>";
 
 	foreach ($lista as $value) {
 		$html.="<tr>";
@@ -29,9 +31,10 @@
 		$html.="<td>".$value["dc_nombre"]."</td>";
 		$html.="<td>".$value["dc_apellido"]."</td>";
 		$html.="<td>".$value["dc_fecha"]."</td>";
-		$html.="<td>".$value["dc_dni"]."</td>";
+		// Descifrar DNI para mostrar en reporte (solo administradores autorizados)
+		$dni_descifrado = descifrarDNI($value["dc_dni"]);
+		$html.="<td>".$dni_descifrado."</td>";
 		$html.="<td>".$value["dc_sexo"]."</td>";
-		$html.="<td>".$value["dc_colegio"]."</td>";
 		$html.="<td>".$value["fecha_registro"]."</td>";
 		$html.="</tr>";
 	}
@@ -40,5 +43,4 @@
 
 	echo utf8_decode($html);
 	die();
-	?>
 ?>
